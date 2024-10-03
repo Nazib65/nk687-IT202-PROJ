@@ -1,8 +1,8 @@
 <?php
-$servername = "your_server_name"; // e.g., localhost
-$username = "your_username"; // e.g., root
-$password = "your_password"; // e.g., empty string for XAMPP
-$database = "your_database"; // e.g., your database name
+$servername = "sql1.njit.edu"; 
+$username = "nk687"; 
+$password = "NazibIrfan1@"; 
+$database = "nk687"; 
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $database);
