@@ -10,14 +10,17 @@ session_start();
 </head>
 <body>
     <h1>Please Login to the Outdoor Clothing Inventory Website</h1>
-
+    <?php
+    // Display the error message if the login is incorrect
+    if (isset($_GET['error'])) {
+        echo "<p style='color:red;'>Sorry, login incorrect.</p>";
+    }
+    ?>
     <form action="validate.inc.php" method="post">
         <label for="email">Email:</label>
         <input type="email" name="email" required>
-        
         <label for="password">Password:</label>
         <input type="password" name="password" required>
-        
         <button type="submit">Login</button>
     </form>
 </body>
