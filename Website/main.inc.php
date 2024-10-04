@@ -10,7 +10,7 @@ if (!isset($_SESSION['login'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to OutdoorClothing Inventory Helper</title>
+    <title>Welcome to Outdoor Clothing Inventory Helper</title>
 </head>
 <body>
     <h1>Welcome <?php echo $_SESSION['firstName'] . " " . $_SESSION['lastName'] . " (" . $_SESSION['pronouns'] . ")"; ?></h1>

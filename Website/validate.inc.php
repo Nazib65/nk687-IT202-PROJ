@@ -6,7 +6,7 @@ include 'database.php'; // Include your database connection
 $email = $_POST['email'];
 $password = $_POST['password'];
 
-// Query to check user credentials
+// Prepare a statement to check user credentials
 $stmt = $conn->prepare("SELECT * FROM OutdoorClothingManagers WHERE emailAddress = ? AND password = SHA2(?, 256)");
 $stmt->bind_param("ss", $email, $password);
 $stmt->execute();
@@ -20,9 +20,13 @@ if ($result->num_rows > 0) {
     $_SESSION['firstName'] = $user['firstName'];
     $_SESSION['lastName'] = $user['lastName'];
     $_SESSION['pronouns'] = $user['pronouns'];
-    header("Location: main.inc.php"); // Redirect to main page
+    
+    // Redirect to main page
+    header("Location: main.inc.php");
+    exit(); // Ensure no further code is executed after redirection
 } else {
     // Invalid credentials
-    header("Location: index.php?error=incorrect"); // Redirect back to login
+    header("Location: index.php?error=incorrect"); // Redirect back to login with error
+    exit(); // Ensure no further code is executed after redirection
 }
 ?>

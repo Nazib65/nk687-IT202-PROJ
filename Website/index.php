@@ -9,13 +9,17 @@ session_start();
     <title>Please Login to the Outdoor Clothing Inventory Website</title>
 </head>
 <body>
-    <h1>Please Login to the OutdoorClothing Inventory Website</h1>
+    <h1>Please Login to the Outdoor Clothing Inventory Website</h1>
+
     <form action="validate.inc.php" method="post">
         <label for="email">Email:</label>
         <input type="email" name="email" required>
+        
         <label for="password">Password:</label>
         <input type="password" name="password" required>
+        
         <button type="submit">Login</button>
     </form>
 </body>
 </html>
+
