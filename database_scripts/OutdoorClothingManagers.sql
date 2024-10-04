@@ -1,3 +1,11 @@
+-- Name: Nazib Irfan Khan
+-- Date: 2024-10-02
+-- Course: IT202
+-- Section: 001
+-- Assignment: Phase01Assignment
+-- Email: nk687@njit.edu
+
+
 CREATE TABLE OutdoorClothingManagers (
     OutdoorClothingManagerID INT(11) NOT NULL AUTO_INCREMENT,
     emailAddress VARCHAR(255) NOT NULL UNIQUE,

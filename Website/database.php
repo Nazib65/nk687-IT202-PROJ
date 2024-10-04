@@ -1,3 +1,11 @@
+// Name: Nazib Irfan Khan
+// Date: 2024-10-02
+// Course: IT202
+// Section: 001
+// Assignment: Phase01Assigment
+// Email: nk687@njit.edu
+
+
 <?php
 $servername = "sql1.njit.edu"; 
 $username = "nk687"; 
