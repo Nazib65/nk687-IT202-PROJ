@@ -1,3 +1,9 @@
+-- Name: Nazib Irfan Khan
+-- Date: 2024-10-02
+-- Course: IT202
+-- Section: 001
+-- Assignment: Phase02Assignment
+-- Email: nk687@njit.edu
 CREATE TABLE OutdoorClothingCategories (
     OutdoorClothingCategoryID INT(11) NOT NULL,
     OutdoorClothingCategoryCode VARCHAR(10) NOT NULL UNIQUE,

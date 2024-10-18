@@ -1,3 +1,10 @@
+// Name: Nazib Irfan Khan
+// Date: 2024-10-02
+// Course: IT202
+// Section: 001
+// Assignment: Phase02Assigment
+// Email: nk687@njit.edu
+
 <?php
 require_once 'database.php';
 require_once 'OutdoorClothingCategory.php';

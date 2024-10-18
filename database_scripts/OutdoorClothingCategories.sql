@@ -1,3 +1,11 @@
+-- Name: Nazib Irfan Khan
+-- Date: 2024-10-02
+-- Course: IT202
+-- Section: 001
+-- Assignment: Phase02Assignment
+-- Email: nk687@njit.edu
+
+
 -- phpMyAdmin SQL Dump
 -- version 4.2.7.1
 -- http://www.phpmyadmin.net
