@@ -5,18 +5,23 @@
 // Assignment: Phase01Assigment
 // Email: nk687@njit.edu
 
-
 <?php
-$servername = "sql1.njit.edu"; 
-$username = "nk687"; 
-$password = "NazibIrfan1@"; 
-$database = "nk687"; 
-
-// Create connection
-$conn = new mysqli($servername, $username, $password, $database);
-
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+ function getDB() {
+   $host = 'sql1.njit.edu';
+   $port = 3306;
+   $dbname = 'nk687';
+   $username = 'nk687';
+   $password = 'NazibIrfan1@';
+   mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+   try {
+       $db = new mysqli($host, $username, $password, $dbname, $port);
+       error_log("You are connected to the $host database!");
+       return $db;
+   } catch (mysqli_sql_exception $e) {
+       error_log($e->getMessage(), 0);
+       echo $e->getMessage();
+   }
+ }
+ getDB();
 ?>
+
