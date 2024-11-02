@@ -2,35 +2,39 @@
 // Date: 2024-10-02
 // Course: IT202
 // Section: 001
-// Assignment: Phase01Assigment
+// Assignment: Phase03Assigment
 // Email: nk687@njit.edu
-
 
 <?php
 session_start();
+include("OutdoorClothingCategory.php");
+include("OutdoorClothingProduct.php");
+
+$storename="Naz";
 ?>
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Please Login to the Outdoor Clothing Inventory Website</title>
-</head>
+<html>
+<head><title><?php echo $storename; ?> Inventory Helper</title></head>
 <body>
-    <h1>Please Login to the Outdoor Clothing Inventory Website</h1>
-    <?php
-    // Display the error message if the login is incorrect
-    if (isset($_GET['error'])) {
-        echo "<p style='color:red;'>Sorry, login incorrect.</p>";
-    }
-    ?>
-    <form action="validate.inc.php" method="post">
-        <label for="email">Email:</label>
-        <input type="email" name="email" required>
-        <label for="password">Password:</label>
-        <input type="password" name="password" required>
-        <button type="submit">Login</button>
-    </form>
+<header>
+       <?php include("header.inc.php"); ?>
+   </header>
+   <section style="height: 525px;">
+       <nav style="float: left; height: 100%;">
+           <?php include("nav.inc.php"); ?>
+       </nav>
+       <main>
+           <?php
+           if (isset($_REQUEST['content'])) {
+               include($_REQUEST['content'] . ".inc.php");
+           } else {
+               include("main.inc.php");
+           }
+           ?>
+       </main>
+   </section>
+   <footer>
+       <?php include("footer.inc.php"); ?>
+   </footer>
 </body>
 </html>
-

@@ -2,7 +2,7 @@
 // Date: 2024-10-02
 // Course: IT202
 // Section: 001
-// Assignment: Phase02Assigment
+// Assignment: Phase03Assigment
 // Email: nk687@njit.edu
 <?php
 class OutdoorClothingProduct {
@@ -68,7 +68,7 @@ class OutdoorClothingProduct {
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param('i', $id);
         $stmt->execute();
-        return $stmt->get_result()->fetch_assoc();
+        return $stmt->get_result()->fetch_object();
     }
 
     public function update() {

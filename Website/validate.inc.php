@@ -6,34 +6,31 @@
 // Email: nk687@njit.edu
 
 <?php
-session_start();
-include 'database.php'; // Include your database connection
-
-// Get form data
-$email = $_POST['email'];
+require_once('database.php');
+$emailAddress = $_POST['emailAddress'];
 $password = $_POST['password'];
-
-// Prepare a statement to check user credentials
-$stmt = $conn->prepare("SELECT * FROM OutdoorClothingManagers WHERE emailAddress = ? AND password = SHA2(?, 256)");
-$stmt->bind_param("ss", $email, $password);
+$query = "SELECT firstName, lastName, pronouns FROM OutdoorClothingManagers " .
+        "WHERE emailAddress = ? AND password = SHA2(?,256)";
+$db = getDB();
+$stmt = $db->prepare($query);
+$stmt->bind_param("ss", $emailAddress, $password);
 $stmt->execute();
-$result = $stmt->get_result();
+$stmt->bind_result($firstName, $lastName, $pronouns);
+$fetched = $stmt->fetch();
+$name = "$firstName $lastName";
+$pronouns="$pronouns";
+if ($fetched && isset($name)) {
+   echo "<h2>Welcome to the OutdoorClothing Store, $name</h2>\n";
+   $_SESSION['login'] = $name;
+   $_SESSION['emailAddress']=$emailAddress;
+   $_SESSION['firstName']=$firstName;
+   $_SESSION['lastName']=$lastName;
+   $_SESSION['pronouns']=$pronouns;
 
-if ($result->num_rows > 0) {
-    // Fetch user data
-    $user = $result->fetch_assoc();
-    $_SESSION['login'] = true;
-    $_SESSION['emailAddress'] = $user['emailAddress'];
-    $_SESSION['firstName'] = $user['firstName'];
-    $_SESSION['lastName'] = $user['lastName'];
-    $_SESSION['pronouns'] = $user['pronouns'];
-    
-    // Redirect to main page
-    header("Location: main.inc.php");
-    exit(); // Ensure no further code is executed after redirection
+
+   header("Location: index.php");
 } else {
-    // Invalid credentials
-    header("Location: index.php?error=incorrect"); // Redirect back to login with error
-    exit(); // Ensure no further code is executed after redirection
+   echo "<h2>Sorry, login incorrect for OutdoorClothing Store</h2>\n";
+   echo "<a href=\"index.php\">Please try again</a>\n";
 }
 ?>

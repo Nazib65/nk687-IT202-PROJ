@@ -2,12 +2,16 @@
 // Date: 2024-10-02
 // Course: IT202
 // Section: 001
-// Assignment: Phase01Assigment
+// Assignment: Phase03Assigment
 // Email: nk687@njit.edu
 
 <?php
-session_start();
-session_unset(); // Unset all session variables
-session_destroy(); // Destroy the session
-header("Location: index.php"); // Redirect to login page
+if (isset($_SESSION['login'])) {
+   unset($_SESSION['login']);
+   unset($_SESSION['emailAddress']);
+   unset($_SESSION['firstName']);
+   unset($_SESSION['lastName']);
+   unset($_SESSION['pronouns']);
+}
+header("Location: index.php");
 ?>

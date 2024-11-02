@@ -2,7 +2,7 @@
 // Date: 2024-10-02
 // Course: IT202
 // Section: 001
-// Assignment: Phase01Assigment
+// Assignment: Phase03Assigment
 // Email: nk687@njit.edu
 <?php
 require_once 'database.php';
