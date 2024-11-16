@@ -1,9 +1,11 @@
+<?
 // Name: Nazib Irfan Khan
 // Date: 2024-10-02
 // Course: IT202
 // Section: 001
 // Assignment: Phase03Assigment
 // Email: nk687@njit.edu
+?>
 
 <p>&copy OutdoorClothing Inventory Helper - Making the OutdoorClothing Inventory Management Easier</p>
 <p>Nazib Irfan Khan, IT202-001, Internet Applications, Phase 3 Assignment, nk687@njit.edu</p>

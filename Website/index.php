@@ -1,10 +1,11 @@
+<?
 // Name: Nazib Irfan Khan
 // Date: 2024-10-02
 // Course: IT202
 // Section: 001
 // Assignment: Phase03Assigment
 // Email: nk687@njit.edu
-
+?>
 <?php
 session_start();
 include("OutdoorClothingCategory.php");
@@ -14,7 +15,11 @@ $storename="Naz";
 ?>
 <!DOCTYPE html>
 <html>
-<head><title><?php echo $storename; ?> Inventory Helper</title></head>
+<head>
+    <title><?php echo $storename; ?> Inventory Helper</title>
+    <link rel="stylesheet" type="text/css" href="ih_styles.css">
+   <link rel="icon" type="image/png" href="images/logo.png">
+</head>
 <body>
 <header>
        <?php include("header.inc.php"); ?>

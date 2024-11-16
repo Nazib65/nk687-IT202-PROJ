@@ -1,0 +1,18 @@
+-- Name: Nazib Irfan Khan
+-- Date: 2024-10-02
+-- Course: IT202
+-- Section: 001
+-- Assignment: Phase02Assignment
+-- Email: nk687@njit.edu
+
+Create Product
+http://localhost:3000/addOutdoorClothingProduct.test.php?productID=1006&productCode=WTCTS007&productName=WInter+Coats&productDescription=Heavy-duty+winter+coats&size=S&color=Red&categoryID=203&wholesalePrice=18.00&listPrice=127.00
+
+Verify Create Categories
+http://localhost:3000/listOutdoorClothingproducts.test.php
+
+Update Product
+http://localhost:3000/changeOutdoorClothingproduct.test.php?productID=1006&productCode=WTCTS007&productName=New+Winter+Coats&productDescription=Heavy-duty+and+longlasting+winter+coats&categoryID=203&wholesalePrice=18.00&listPrice=125.00&size=S&color=Purple
+
+Remove Product
+http://localhost:3000/removeOutdoorClothingproducts.test.php?productID=1006

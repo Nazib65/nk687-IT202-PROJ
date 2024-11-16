@@ -1,0 +1,23 @@
+-- Name: Nazib Irfan Khan
+-- Date: 2024-10-02
+-- Course: IT202
+-- Section: 001
+-- Assignment: Phase02Assignment
+-- Email: nk687@njit.edu
+
+Create Category
+http://localhost/addOutdoorClothingcategory.test.php?categoryID=203&categoryCode=WTCTS&categoryName=Winter Coats&aisleNumber=13
+
+Verify Create Category
+http://localhost/listOutdoorClothingcategories.test.php
+
+Update Category
+http://localhost:3000/changeOutdoorClothingcategory.test.php?categoryID=203&categoryCode=NEWWTCT&categoryName=New+Winter+Coats&aisleNumber=13
+Verify Update Category
+http://localhost/listOutdoorClothingcategories.test.php
+
+Delete Category
+http://localhost/removeOutdoorClothingcategory.test.php?categoryID=203
+
+Verify Delete Category
+http://localhost/listOutdoorClothingcategories.test.php

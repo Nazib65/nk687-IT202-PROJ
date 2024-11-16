@@ -1,16 +1,9 @@
--- Name: Nazib Irfan Khan
--- Date: 2024-10-02
--- Course: IT202
--- Section: 001
--- Assignment: Phase02Assignment
--- Email: nk687@njit.edu
-
 -- phpMyAdmin SQL Dump
 -- version 4.2.7.1
 -- http://www.phpmyadmin.net
 --
 -- Host: sql1.njit.edu
--- Generation Time: Oct 18, 2024 at 05:57 PM
+-- Generation Time: Nov 16, 2024 at 12:03 AM
 -- Server version: 8.0.17
 -- PHP Version: 7.4.8
 
@@ -65,7 +58,10 @@ INSERT INTO `OutdoorClothingProducts` (`OutdoorClothingProductID`, `OutdoorCloth
 (1012, 'TCH012', 'Touchscreen Gloves', 'These touchscreen gloves allow you to use your devices without removing them. They keep your hands warm while being practical.', 'M', 'Black', 404, 25.00, 35.00, '2024-10-18 13:56:31'),
 (1013, 'WSG013', 'Winter Ski Gloves', 'Designed for skiing, these gloves provide warmth and protection from the elements. They are waterproof and insulated for added comfort.', 'L', 'Blue', 404, 50.00, 80.00, '2024-10-18 13:56:31'),
 (1014, 'ZFJ014', 'Zippered Fleece Jacket', 'This zippered fleece jacket provides additional warmth and style. It’s perfect for casual outings and outdoor adventures.', 'L', 'Gray', 505, 80.00, 120.00, '2024-10-18 13:56:31'),
-(1015, 'PFL015', 'Pullover Fleece Hoodie', 'A classic pullover fleece hoodie that combines comfort and style. Great for everyday wear during the colder months.', 'S', 'Red', 505, 60.00, 90.00, '2024-10-18 13:56:31');
+(1015, 'PFL015', 'Pullover Fleece Hoodie', 'A classic pullover fleece hoodie that combines comfort and style. Great for everyday wear during the colder months.', 'S', 'Red', 505, 60.00, 90.00, '2024-10-18 13:56:31'),
+(1016, 'BMBJCKT016', 'Bomber Jacket', 'A bomber jacket is a timeless fashion staple that effortlessly blends style, comfort, and versatility. Originally designed for pilots, this jacket has evolved into a must-have for modern wardrobes.', 'M', '0', 607, 78.00, 99.00, '2024-11-15 01:43:37'),
+(1017, 'FLNL016', 'Flannel Shirt ', 'Good to wear ', 'M', '0', 607, 44.00, 66.00, '2024-11-02 02:58:51'),
+(1018, 'FLNL017', 'Flannel S', 'Warm to wear ', 'M', '0', 608, 45.00, 65.00, '2024-11-02 03:01:35');
 
 --
 -- Indexes for dumped tables

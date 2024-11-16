@@ -1,0 +1,126 @@
+body {
+    font-family: Geneva, Tahoma, sans-serif;
+    font-size: 80%;
+    color: darkred;
+    margin: 0px;
+    padding: 0px;
+    overflow-x: hidden;
+ 
+ }
+ h1 {
+    font-family: Verdana, Arial, sans-serif;
+    font-size: 120%;
+    color: brown;
+    margin: 0px;
+    padding: 0px;
+ 
+ }
+ h2 {
+    font-family: Geneva, Tahoma, sans-serif;
+    font-size: 120%;
+    color: brown;
+    margin: 0px;
+    padding: 0px;
+ 
+
+ }
+ h3 {
+    font-family: Geneva, Tahoma, sans-serif;
+    font-size: 110%;
+    color: brown;
+    margin: 0px;
+    padding: 0px;
+ 
+
+ }
+ h4 {
+    font-family: Geneva, Tahoma, sans-serif;
+    font-size: 110;
+    color: brown;
+    margin: 0px;
+    padding: 0px;
+ 
+ }
+ footer {
+    font-family: Geneva, Tahoma, sans-serif;
+    clear: both;
+    text-align: center;
+    font-size: 100%;
+    color: black;
+    padding: 7px;
+    border-bottom: 1px solid #E2EAEF;
+    border-top: 1px solid #E2EAEF;
+    width: 100%;
+ 
+ }
+ main {
+    padding: 5px;
+    border-top: 1px solid #E2EAEF;
+    float: left;
+    width: 55%;
+    height: 100%;
+ }
+ 
+ main table {
+    padding: 2px;
+ }
+ 
+ main td {
+    padding: 2px;
+ }
+ header {
+    padding: 7px;
+    border-bottom: 1px solid #E2EAEF;
+    height: 40px;
+    width: 100%;
+ }
+ 
+ nav {
+    padding: 5px;
+    border-bottom: 1px solid #E2EAEF;
+    border-top: 1px solid #E2EAEF;
+    border-right: 1px solid #E2EAEF;
+    background-color: #f8eddc;
+    width: 20%;
+ }
+ a {
+    color: #006c8c;
+    text-decoration: none;
+ }
+ 
+ a:link {
+    color: #006c8c;
+    text-decoration: none;
+ }
+ 
+ a:visited {
+    color: #003049;
+    text-decoration: none;
+ }
+ 
+ a:hover {
+    color: #0088bb;
+    text-decoration: underline;
+ }
+ input {
+    border: 1px solid currentcolor;
+ }
+ 
+ input[type=submit] {
+    font-family: Verdana, Arial, sans-serif;
+ }
+ 
+ input:required:invalid {
+    border: 1px solid red;
+ }
+ 
+ input:required:valid {
+    border: 1px solid limegreen;
+ }
+ 
+ input:focus {
+    background-color: #e6f7fa;
+ }
+   
+ 
+ 

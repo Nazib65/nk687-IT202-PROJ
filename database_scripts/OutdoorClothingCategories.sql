@@ -1,17 +1,9 @@
--- Name: Nazib Irfan Khan
--- Date: 2024-10-02
--- Course: IT202
--- Section: 001
--- Assignment: Phase02Assignment
--- Email: nk687@njit.edu
-
-
 -- phpMyAdmin SQL Dump
 -- version 4.2.7.1
 -- http://www.phpmyadmin.net
 --
 -- Host: sql1.njit.edu
--- Generation Time: Oct 18, 2024 at 05:34 PM
+-- Generation Time: Nov 16, 2024 at 12:04 AM
 -- Server version: 8.0.17
 -- PHP Version: 7.4.8
 
@@ -51,7 +43,9 @@ INSERT INTO `OutdoorClothingCategories` (`OutdoorClothingCategoryID`, `OutdoorCl
 (202, 'HKBTS', 'Hiking Boots', 7, '2024-10-18 11:28:56'),
 (303, 'UVPROHAT', 'UV Protection Hats', 8, '2024-10-18 11:28:56'),
 (404, 'INSGLO', 'Insulated Gloves', 9, '2024-10-18 11:28:56'),
-(505, 'FLH', 'Fleece-lined Hoodies', 10, '2024-10-18 11:28:56');
+(505, 'FLH', 'Fleece-lined Hoodies', 10, '2024-10-18 11:28:56'),
+(606, 'FLNSHRT', 'Flannel Shirt ', 13, '2024-11-02 02:19:01'),
+(707, 'BMBJCKT', 'Bomber Jacket', 11, '2024-11-15 01:23:50');
 
 --
 -- Indexes for dumped tables
