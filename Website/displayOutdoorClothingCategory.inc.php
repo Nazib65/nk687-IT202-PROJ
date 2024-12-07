@@ -7,36 +7,23 @@
 // Email: nk687@njit.edu
 ?>
 <?php
-require_once 'database.php';
-require_once 'OutdoorClothingCategory.php';
-
-// Check if a valid category ID is provided
-if (!isset($_REQUEST['OutdoorClothingCategoryID']) || !is_numeric($_REQUEST['OutdoorClothingCategoryID'])) {
-    echo "<h2>You did not select a valid Outdoor Clothing Category ID to view.</h2>";
-    echo '<a href="index.php?content=listoutdoorclothingcategories">List Categories</a>';
+if (!isset($_REQUEST['OutdoorClothingCategoryID']) or (!is_numeric($_REQUEST['OutdoorClothingCategoryID']))) {
+?>
+   <h2>You did not select a valid categoryID to view.</h2>
+   <a href="index.php?content=listOutdoorClothingCategories">List Categories</a>
+<?php
 } else {
-    // Use the correct variable name from the request
-    $outdoorClothingCategoryID = $_REQUEST['OutdoorClothingCategoryID']; 
+   // Retrieve and validate the category ID
+   $OutdoorClothingCategoryID = $_REQUEST['OutdoorClothingCategoryID'];
+   $category = OutdoorClothingCategory::find($OutdoorClothingCategoryID);
 
-    // Initialize the database connection
-    $db = getDB();
-    $category = new OutdoorClothingCategory($db);
-
-    // Find the category based on the provided ID
-    $categoryData = $category->find($outdoorClothingCategoryID);
-
-    // Display the category details if found
-    if ($categoryData) {
-        echo "<h2>Outdoor Clothing Category Details</h2>";
-        echo "<p><strong>Code:</strong> " . htmlspecialchars($categoryData['OutdoorClothingCategoryCode']) . "</p>"; // Use array syntax
-        echo "<p><strong>Name:</strong> " . htmlspecialchars($categoryData['OutdoorClothingCategoryName']) . "</p>"; // Use array syntax
-        echo "<p><strong>Aisle Number:</strong> " . htmlspecialchars($categoryData['AisleNumber'] ?? 'N/A') . "</p>"; // Use array syntax
-    } else {
-        // Error message if the category is not found
-        echo "<h2>Sorry, outdoor clothing category $outdoorClothingCategoryID not found</h2>";
-    }
-
-    // Close the database connection if needed
-    $db->close();
+   if ($category) {
+       // Display the category information
+       echo $category;
+       echo "<br><br>\n";
+   } else {
+       // Handle the case where the category isn't found
+       echo "<h2>Sorry, category #$OutdoorClothingCategoryID not found</h2>\n";
+   }
 }
 ?>

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: sql1.njit.edu
--- Generation Time: Nov 16, 2024 at 12:04 AM
+-- Generation Time: Dec 07, 2024 at 05:22 PM
 -- Server version: 8.0.17
 -- PHP Version: 7.4.8
 
@@ -40,12 +40,8 @@ CREATE TABLE IF NOT EXISTS `OutdoorClothingCategories` (
 
 INSERT INTO `OutdoorClothingCategories` (`OutdoorClothingCategoryID`, `OutdoorClothingCategoryCode`, `OutdoorClothingCategoryName`, `AisleNumber`, `DateCreated`) VALUES
 (105, 'WTJCKT', 'Waterproof Jackets', 6, '2024-10-18 11:28:56'),
-(202, 'HKBTS', 'Hiking Boots', 7, '2024-10-18 11:28:56'),
-(303, 'UVPROHAT', 'UV Protection Hats', 8, '2024-10-18 11:28:56'),
-(404, 'INSGLO', 'Insulated Gloves', 9, '2024-10-18 11:28:56'),
-(505, 'FLH', 'Fleece-lined Hoodies', 10, '2024-10-18 11:28:56'),
-(606, 'FLNSHRT', 'Flannel Shirt ', 13, '2024-11-02 02:19:01'),
-(707, 'BMBJCKT', 'Bomber Jacket', 11, '2024-11-15 01:23:50');
+(202, 'HKBTTS', 'Hiking Boots', 7, '2024-10-18 11:28:56'),
+(303, 'UVPROHAT', 'UV Protection Hats', 8, '2024-10-18 11:28:56');
 
 --
 -- Indexes for dumped tables

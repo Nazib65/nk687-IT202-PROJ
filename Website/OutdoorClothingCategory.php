@@ -7,58 +7,143 @@
 // Email: nk687@njit.edu
 ?>
 <?php
+require_once("database.php");
+
 class OutdoorClothingCategory {
     public $OutdoorClothingCategoryID;
     public $OutdoorClothingCategoryCode;
     public $OutdoorClothingCategoryName;
-    public $AisleNumber; // New property
+    public $AisleNumber;
     public $DateCreated;
 
-    private $conn;
-
-    public function __construct($db) {
-        $this->conn = $db;
+    // Constructor
+    public function __construct($OutdoorClothingCategoryID, $OutdoorClothingCategoryCode, $OutdoorClothingCategoryName, $AisleNumber, $DateCreated = null) {
+        $this->OutdoorClothingCategoryID = $OutdoorClothingCategoryID;
+        $this->OutdoorClothingCategoryCode = $OutdoorClothingCategoryCode;
+        $this->OutdoorClothingCategoryName = $OutdoorClothingCategoryName;
+        $this->AisleNumber = $AisleNumber;
+        $this->DateCreated = $DateCreated ?? date('Y-m-d H:i:s');
     }
 
+    // Save new category
     public function save() {
-        $sql = "INSERT INTO OutdoorClothingCategories (OutdoorClothingCategoryID, OutdoorClothingCategoryCode, OutdoorClothingCategoryName, AisleNumber, DateCreated)
-                VALUES (?, ?, ?, ?, NOW())";
-        $stmt = $this->conn->prepare($sql);
+        $db = getDB();
+        $query = "INSERT INTO OutdoorClothingCategories (OutdoorClothingCategoryID, OutdoorClothingCategoryCode, OutdoorClothingCategoryName, AisleNumber, DateCreated) 
+                  VALUES (?, ?, ?, ?, ?)";
+        $stmt = $db->prepare($query);
+        $stmt->bind_param(
+            "issss",
+            $this->OutdoorClothingCategoryID,
+            $this->OutdoorClothingCategoryCode,
+            $this->OutdoorClothingCategoryName,
+            $this->AisleNumber,
+            $this->DateCreated
+        );
+        $result = $stmt->execute();
+        $stmt->close();
+        $db->close();
+        return $result;
+    }
 
-        if ($stmt === false) {
-            die("Error preparing the statement: " . $this->conn->error);
+    // Retrieve all categories
+    public static function retrieve() {
+        $db = getDB();
+        $query = "SELECT * FROM OutdoorClothingCategories";
+        $result = $db->query($query);
+
+        if ($result->num_rows > 0) {
+            $categories = [];
+            while ($row = $result->fetch_array(MYSQLI_ASSOC)) {
+                $category = new OutdoorClothingCategory(
+                    $row['OutdoorClothingCategoryID'],
+                    $row['OutdoorClothingCategoryCode'],
+                    $row['OutdoorClothingCategoryName'],
+                    $row['AisleNumber'],
+                    $row['DateCreated']
+                );
+                $categories[] = $category;
+            }
+            $db->close();
+            return $categories;
+        } else {
+            $db->close();
+            return null;
         }
-
-        $stmt->bind_param('issi', $this->OutdoorClothingCategoryID, $this->OutdoorClothingCategoryCode, $this->OutdoorClothingCategoryName, $this->AisleNumber);
-        return $stmt->execute();
     }
 
-    public function getAll() {
-        $sql = "SELECT OutdoorClothingCategoryID, OutdoorClothingCategoryCode, OutdoorClothingCategoryName, AisleNumber FROM OutdoorClothingCategories";
-        $result = $this->conn->query($sql);
-        return $result->fetch_all(MYSQLI_ASSOC);
-    }
-
-    public function find($id) {
-        $sql = "SELECT * FROM OutdoorClothingCategories WHERE OutdoorClothingCategoryID = ?";
-        $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param('i', $id);
+    // Find a category by ID
+    public static function find($OutdoorClothingCategoryID) {
+        $db = getDB();
+        $query = "SELECT * FROM OutdoorClothingCategories WHERE OutdoorClothingCategoryID = ?";
+        $stmt = $db->prepare($query);
+        $stmt->bind_param("i", $OutdoorClothingCategoryID);
         $stmt->execute();
-        return $stmt->get_result()->fetch_assoc();
+        $result = $stmt->get_result();
+        $row = $result->fetch_array(MYSQLI_ASSOC);
+
+        if ($row) {
+            $category = new OutdoorClothingCategory(
+                $row['OutdoorClothingCategoryID'],
+                $row['OutdoorClothingCategoryCode'],
+                $row['OutdoorClothingCategoryName'],
+                $row['AisleNumber'],
+                $row['DateCreated']
+            );
+            $stmt->close();
+            $db->close();
+            return $category;
+        } else {
+            $stmt->close();
+            $db->close();
+            return null;
+        }
     }
 
+    // Update category details
     public function update() {
-        $sql = "UPDATE OutdoorClothingCategories SET OutdoorClothingCategoryCode = ?, OutdoorClothingCategoryName = ?, AisleNumber = ? WHERE OutdoorClothingCategoryID = ?";
-        $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param('ssii', $this->OutdoorClothingCategoryCode, $this->OutdoorClothingCategoryName, $this->AisleNumber, $this->OutdoorClothingCategoryID);
-        return $stmt->execute();
+        $db = getDB();
+        $query = "UPDATE OutdoorClothingCategories 
+                  SET OutdoorClothingCategoryCode = ?, OutdoorClothingCategoryName = ?, AisleNumber = ? 
+                  WHERE OutdoorClothingCategoryID = ?";
+        $stmt = $db->prepare($query);
+        $stmt->bind_param(
+            "ssii",
+            $this->OutdoorClothingCategoryCode,
+            $this->OutdoorClothingCategoryName,
+            $this->AisleNumber,
+            $this->OutdoorClothingCategoryID
+        );
+        $result = $stmt->execute();
+        $stmt->close();
+        $db->close();
+        return $result;
     }
 
-    public function delete() {
-        $sql = "DELETE FROM OutdoorClothingCategories WHERE OutdoorClothingCategoryID = ?";
-        $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param('i', $this->OutdoorClothingCategoryID);
-        return $stmt->execute();
+    // Delete a category
+    public function remove() {
+        $db = getDB();
+        $query = "DELETE FROM OutdoorClothingCategories WHERE OutdoorClothingCategoryID = ?";
+        $stmt = $db->prepare($query);
+        $stmt->bind_param("i", $this->OutdoorClothingCategoryID);
+        $result = $stmt->execute();
+        $stmt->close();
+        $db->close();
+        return $result;
+    }
+
+    // Get total categories count
+    public static function getTotalCategories() {
+        $db = getDB();
+        $query = "SELECT COUNT(OutdoorClothingCategoryID) AS total FROM OutdoorClothingCategories";
+        $result = $db->query($query);
+        $row = $result->fetch_array(MYSQLI_ASSOC);
+        $db->close();
+        return $row ? $row['total'] : null;
+    }
+
+    // Convert object to string
+    public function __toString() {
+        return "Category ID: $this->OutdoorClothingCategoryID, Name: $this->OutdoorClothingCategoryName, Aisle: $this->AisleNumber";
     }
 }
 ?>

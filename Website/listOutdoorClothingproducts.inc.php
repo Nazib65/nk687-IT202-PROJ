@@ -7,43 +7,42 @@
 // Email: nk687@njit.edu
 ?>
 
-<?php
-require_once 'database.php';
-require_once 'OutdoorClothingProduct.php';
+<script language="javascript">
+   function listbox_dblclick() {
+       document.OutdoorClothingProduct.updateOutdoorClothingProduct.click()
+   }
 
-// Establish a database connection
-$db = getDB();
-$product = new OutdoorClothingProduct($db);
-
-// Fetch all products
-$products = $product->getAll();
-?>
-
-<h2>Select Product</h2>
-<form name="OutdoorClothingProducts" method="post" action="index.php"> 
-   <label for="OutdoorClothingProductID">Choose a product:</label>
-   <select name="OutdoorClothingProductID" id="OutdoorClothingProductID" size="20">
-       <option value="">-- Please select a product --</option>
-       <?php
-       if (empty($products)) {
-           echo "<option value=''>No products available</option>";
-       } else {
-           foreach ($products as $prod) {
-               $OutdoorClothingProductID = htmlspecialchars($prod['OutdoorClothingProductID']);
-               $OutdoorClothingProductName = htmlspecialchars($prod['OutdoorClothingProductName']);
-               $OutdoorClothingProductListPrice = number_format($prod['OutdoorClothingListPrice'], 2);
-               $option = "$OutdoorClothingProductID - $OutdoorClothingProductName - $$OutdoorClothingProductListPrice"; 
-               echo "<option value=\"$OutdoorClothingProductID\">$option</option>\n"; 
-           }
+   function button_click(target) {
+       var userConfirmed = true;
+       if (target == 1) {
+           userConfirmed = confirm("Are you sure you want to remove this product?");
        }
-       ?>
-   </select>
-   <input type="submit" value="Select Product"> 
+       if (userConfirmed) {
+           if (target == 1) OutdoorClothingProduct.action = "index.php?content=removeOutdoorClothingProduct";
+           if (target == 2) OutdoorClothingProduct.action = "index.php?content=updateOutdoorClothingProduct";
+       } else {
+           alert("Action canceled.");
+       }
+   }
+</script>
+
+<h2>Select Outdoor Clothing Product</h2>
+<form name="OutdoorClothingProduct" method="post" action="index.php">
+    <select ondblclick="listbox_dblclick()" name="OutdoorClothingProductID" size="20">
+        <?php
+        // include ("OutdoorClothingProduct.php");
+        $products = OutdoorClothingProduct::retrieve();
+        foreach($products as $product){
+            $OutdoorClothingProductID = $product->OutdoorClothingProductID;
+            $OutdoorClothingProductCode = $product->OutdoorClothingProductCode;
+            $OutdoorClothingProductName = $product->OutdoorClothingProductName;
+            $OutdoorClothingProductListPrice = $product->OutdoorClothingListPrice;
+            $option = "$OutdoorClothingProductID - $OutdoorClothingProductName - $OutdoorClothingProductListPrice";
+            echo "<option value=\"$OutdoorClothingProductID\">$option</option>\n";
+        }
+        ?>
+    </select>
+    <br>
+    <input type="submit" onClick="button_click(1)" name="removeOutdoorClothingProduct" value="Remove Product">
+    <input type="submit" onClick="button_click(2)" name="updateOutdoorClothingProduct" value="Update Product">
 </form>
-
-<?php
-// Close the database connection
-$db->close();
-?>
-
-

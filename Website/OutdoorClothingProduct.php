@@ -7,84 +7,207 @@
 // Email: nk687@njit.edu
 ?>
 <?php
+require_once("database.php");
+
 class OutdoorClothingProduct {
     public $OutdoorClothingProductID;
     public $OutdoorClothingProductCode;
     public $OutdoorClothingProductName;
     public $OutdoorClothingDescription;
-    public $Size;  // New property
-    public $Color;  // New property
+    public $Size;
+    public $Color;
     public $OutdoorClothingCategoryID;
     public $OutdoorClothingWholesalePrice;
     public $OutdoorClothingListPrice;
     public $DateCreated;
 
-    private $conn;
-
-    public function __construct($db) {
-        $this->conn = $db;
+    function __construct(
+        $OutdoorClothingProductID,
+        $OutdoorClothingProductCode,
+        $OutdoorClothingProductName,
+        $OutdoorClothingDescription,
+        $Size,
+        $Color,
+        $OutdoorClothingCategoryID,
+        $OutdoorClothingWholesalePrice,
+        $OutdoorClothingListPrice
+    ) {
+        $this->OutdoorClothingProductID = $OutdoorClothingProductID;
+        $this->OutdoorClothingProductCode = $OutdoorClothingProductCode;
+        $this->OutdoorClothingProductName = $OutdoorClothingProductName;
+        $this->OutdoorClothingDescription = $OutdoorClothingDescription;
+        $this->Size = $Size;
+        $this->Color = $Color;
+        $this->OutdoorClothingCategoryID = $OutdoorClothingCategoryID;
+        $this->OutdoorClothingWholesalePrice = $OutdoorClothingWholesalePrice;
+        $this->OutdoorClothingListPrice = $OutdoorClothingListPrice;
+        $this->DateCreated = date('Y-m-d H:i:s');
     }
 
-    public function save() {
-        $sql = "INSERT INTO OutdoorClothingProducts (OutdoorClothingProductID, OutdoorClothingProductCode, OutdoorClothingProductName, OutdoorClothingDescription, Size, Color, OutdoorClothingCategoryID, OutdoorClothingWholesalePrice, OutdoorClothingListPrice, DateCreated)
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, NOW())";
-        $stmt = $this->conn->prepare($sql);
-    
-        if ($stmt === false) {
-            die("Error preparing the statement: " . $this->conn->error);
+    static function getTotalProducts()
+    {
+        $db = getDB();
+        $query = "SELECT count(OutdoorClothingProductID) FROM OutdoorClothingProducts";
+        $result = $db->query($query);
+        $row = $result->fetch_array();
+        if ($row) {
+            return $row[0];
+        } else {
+            return NULL;
         }
-    
-        $stmt->bind_param('issssiiid', 
-            $this->OutdoorClothingProductID, 
-            $this->OutdoorClothingProductCode, 
-            $this->OutdoorClothingProductName, 
-            $this->OutdoorClothingDescription, 
-            $this->Size, 
-            $this->Color, 
-            $this->OutdoorClothingCategoryID, 
-            $this->OutdoorClothingWholesalePrice, 
-            $this->OutdoorClothingListPrice
+    }
+
+    static function getTotalWholesalePrice()
+    {
+        $db = getDB();
+        $query = "SELECT sum(OutdoorClothingWholesalePrice) FROM OutdoorClothingProducts";
+        $result = $db->query($query);
+        $row = $result->fetch_array();
+        if ($row) {
+            return $row[0];
+        } else {
+            return NULL;
+        }
+    }
+
+    static function getTotalListPrice()
+    {
+        $db = getDB();
+        $query = "SELECT sum(OutdoorClothingListPrice) FROM OutdoorClothingProducts";
+        $result = $db->query($query);
+        $row = $result->fetch_array();
+        if ($row) {
+            return $row[0];
+        } else {
+            return NULL;
+        }
+    }
+
+    function save()
+    {
+        $db = getDB();
+        $query = "INSERT INTO OutdoorClothingProducts (OutdoorClothingProductID, OutdoorClothingProductCode, OutdoorClothingProductName, OutdoorClothingDescription, Size, Color, OutdoorClothingCategoryID, OutdoorClothingWholesalePrice, OutdoorClothingListPrice, DateCreated) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $stmt = $db->prepare($query);
+        $stmt->bind_param("issssiidss", 
+            $this->OutdoorClothingProductID,
+            $this->OutdoorClothingProductCode,
+            $this->OutdoorClothingProductName,
+            $this->OutdoorClothingDescription,
+            $this->Size,
+            $this->Color,
+            $this->OutdoorClothingCategoryID,
+            $this->OutdoorClothingWholesalePrice,
+            $this->OutdoorClothingListPrice,
+            $this->DateCreated
         );
-        return $stmt->execute();
+        try {
+            $result = $stmt->execute();
+            return $result;
+        } catch (mysqli_sql_exception $e) {
+            return "We encountered an Error: " . $e->getMessage();
+        } finally {
+            $stmt->close();
+            $db->close();
+        }
     }
-    
-    public function getAll() {
-        $sql = "SELECT 
-                    OutdoorClothingProductID, 
-                    OutdoorClothingProductCode, 
-                    OutdoorClothingProductName, 
-                    OutdoorClothingDescription, 
-                    Size, 
-                    Color, 
-                    OutdoorClothingCategoryID, 
-                    OutdoorClothingWholesalePrice, 
-                    OutdoorClothingListPrice 
-                FROM 
-                    OutdoorClothingProducts";
-        $result = $this->conn->query($sql);
-        return $result->fetch_all(MYSQLI_ASSOC);
+
+    static function retrieve()
+    {
+        $db = getDB();
+        $query = "SELECT * FROM OutdoorClothingProducts";
+        $result = $db->query($query);
+
+        if (mysqli_num_rows($result) > 0) {
+            $products = array();
+            while ($row = $result->fetch_array(MYSQLI_ASSOC)) {
+                $product = new OutdoorClothingProduct(
+                    $row['OutdoorClothingProductID'],
+                    $row['OutdoorClothingProductCode'],
+                    $row['OutdoorClothingProductName'],
+                    $row['OutdoorClothingDescription'],
+                    $row['Size'],
+                    $row['Color'],
+                    $row['OutdoorClothingCategoryID'],
+                    $row['OutdoorClothingWholesalePrice'],
+                    $row['OutdoorClothingListPrice']
+                );
+                array_push($products, $product);
+            }
+            $db->close();
+            return $products;
+        } else {
+            $db->close();
+            return NULL;
+        }
     }
-    
-    public function find($id) {
-        $sql = "SELECT * FROM OutdoorClothingProducts WHERE OutdoorClothingProductID = ?";
-        $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param('i', $id);
+
+    static function find($OutdoorClothingProductID)
+    {
+        $db = getDB();
+        $query = "SELECT * FROM OutdoorClothingProducts WHERE OutdoorClothingProductID = ?";
+        $stmt = $db->prepare($query);
+        $stmt->bind_param("i", $OutdoorClothingProductID);
         $stmt->execute();
-        return $stmt->get_result()->fetch_object();
+        $result = $stmt->get_result();
+        $row = $result->fetch_array(MYSQLI_ASSOC);
+
+        if ($row) {
+            $product = new OutdoorClothingProduct(
+                $row['OutdoorClothingProductID'],
+                $row['OutdoorClothingProductCode'],
+                $row['OutdoorClothingProductName'],
+                $row['OutdoorClothingDescription'],
+                $row['Size'],
+                $row['Color'],
+                $row['OutdoorClothingCategoryID'],
+                $row['OutdoorClothingWholesalePrice'],
+                $row['OutdoorClothingListPrice']
+            );
+            $db->close();
+            return $product;
+        } else {
+            $db->close();
+            return NULL;
+        }
     }
 
-    public function update() {
-        $sql = "UPDATE OutdoorClothingProducts SET OutdoorClothingProductCode = ?, OutdoorClothingProductName = ?, OutdoorClothingDescription = ?, Size = ?, Color = ?, OutdoorClothingCategoryID = ?, OutdoorClothingWholesalePrice = ?, OutdoorClothingListPrice = ? WHERE OutdoorClothingProductID = ?";
-        $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param('sssssiiii', $this->OutdoorClothingProductCode, $this->OutdoorClothingProductName, $this->OutdoorClothingDescription, $this->Size, $this->Color, $this->OutdoorClothingCategoryID, $this->OutdoorClothingWholesalePrice, $this->OutdoorClothingListPrice, $this->OutdoorClothingProductID);
-        return $stmt->execute();
+    function update()
+    {
+        $db = getDB();
+        $query = "UPDATE OutdoorClothingProducts SET OutdoorClothingProductCode = ?, OutdoorClothingProductName = ?, OutdoorClothingDescription = ?, Size = ?, Color = ?, OutdoorClothingCategoryID = ?, OutdoorClothingWholesalePrice = ?, OutdoorClothingListPrice = ? WHERE OutdoorClothingProductID = ?";
+        $stmt = $db->prepare($query);
+        $stmt->bind_param(
+            "sssssiiii", 
+            $this->OutdoorClothingProductCode,
+            $this->OutdoorClothingProductName,
+            $this->OutdoorClothingDescription,
+            $this->Size,
+            $this->Color,
+            $this->OutdoorClothingCategoryID,
+            $this->OutdoorClothingWholesalePrice,
+            $this->OutdoorClothingListPrice,
+            $this->OutdoorClothingProductID
+        );
+        try {
+            $result = $stmt->execute();
+            return $result;
+        } catch (mysqli_sql_exception $e) {
+            return "There is an Error: " . $e->getMessage();
+        } finally {
+            $stmt->close();
+            $db->close();
+        }
     }
 
-    public function delete() {
-        $sql = "DELETE FROM OutdoorClothingProducts WHERE OutdoorClothingProductID = ?";
-        $stmt = $this->conn->prepare($sql);
-        $stmt->bind_param('i', $this->OutdoorClothingProductID);
-        return $stmt->execute();
+    function remove()
+    {
+        $db = getDB();
+        $query = "DELETE FROM OutdoorClothingProducts WHERE OutdoorClothingProductID = ?";
+        $stmt = $db->prepare($query);
+        $stmt->bind_param("i", $this->OutdoorClothingProductID);
+        $result = $stmt->execute();
+        $db->close();
+        return $result;
     }
 }
 ?>
